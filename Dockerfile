@@ -5,7 +5,7 @@ COPY requirements.txt /requirements.txt
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 RUN apt-get update && apt-get install -y libsndfile1-dev
-RUN sudo apt install ffmpeg
+RUN apt-get update && apt-get install -y ffmpeg
 
 COPY msd /msd
 COPY api /api
