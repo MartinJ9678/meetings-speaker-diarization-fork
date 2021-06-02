@@ -8,11 +8,12 @@ class SpeakerDiarizer():
     
     #Attributes
     path_data = os.path.join(os.path.dirname(__file__), 'data/')
+    path_model = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'pyannote-audio-master/pyannote/audio')
     testing_paths=[f"{path_data}Martin.wav",f"{path_data}Loïc.wav",f"{path_data}Yoann.wav"]
     
     def __init__(self,name_pipe):
         self.name_pipe = name_pipe
-        self.pipeline = torch.hub.load('pyannote/pyannote-audio', self.name_pipe)
+        self.pipeline = torch.hub.load(self.path_model, self.name_pipe, source='local')
         self.diarization = None
         self.der = None
         self.current_filename = None
