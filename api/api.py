@@ -28,7 +28,7 @@ def index():
 @app.get("/getfile")
 def get_file(bucket_name, file_name):
     
-    storage_client = storage.Client()
+    storage_client = storage.Client.from_service_account_json('../credentials.json')
     
     bucket = storage_client.bucket(bucket_name)
     
@@ -76,17 +76,17 @@ def save_to_cloud(id, jsonData):
     with open(file_name, 'w') as json_file:
         json_file.write(json.dumps(jsonData))
     
-    storage_client = storage.Client()
-    bucket = storage_client.bucket('wagon-data-589-vigouroux')
+    storage_client = storage.Client.from_service_account_json('../credentials.json')
+    bucket = storage_client.bucket('wagon-data-589-jauffret')
     blob = bucket.blob(f'results/{file_name}')
     blob.upload_from_filename(file_name)
-   
+    
     os.remove(file_name)
 
 @app.get("/speakersLabeling")
 def get_speakers_labels(id):
-    storage_client = storage.Client()
-    bucket = storage_client.bucket('wagon-data-589-vigouroux')
+    storage_client = storage.Client.from_service_account_json('../credentials.json')
+    bucket = storage_client.bucket('wagon-data-589-jauffret')
     blob = bucket.blob(f'results/{id}.json')
     jsonData = blob.download_as_string(client=None)
     
